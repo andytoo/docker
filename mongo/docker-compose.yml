@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    networks:
+      - mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/mongo/data:/data/db
+
+networks:
+  mongo:
+    name: mongo
+    driver: bridge

@@ -1,0 +1,24 @@
+version: "3.5"
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    restart: unless-stopped
+    command:
+      - serve
+    networks:
+      - ntfy
+    ports:
+      - 82:80
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Taipei
+    volumes:
+      - ${DATA_ROOT}/ntfy/cache:/var/cache/ntfy
+      - ${DATA_ROOT}/ntfy:/etc/ntfy
+
+networks:
+  ntfy:
+    name: ntfy
+    driver: bridge

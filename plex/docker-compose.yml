@@ -1,0 +1,20 @@
+version: "3.5"
+services:
+  plex:
+    image: ghcr.io/linuxserver/plex
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Taipei
+      - VERSION=docker
+      - PLEX_CLAIM=${PLEX_CLAIM}
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/plex/config:/config
+      - ${MEDIA_ROOT}/Movies:/movies
+      - ${MEDIA_ROOT}/Tv Shows:/media/tvshows
+      - ${MEDIA_ROOT}/Books:/audiobooks

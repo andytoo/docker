@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  lidarr:
+    image: lscr.io/linuxserver/lidarr
+    container_name: lidarr
+    restart: unless-stopped
+    networks:
+      - lidarr
+    ports:
+      - 8686:8686
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Taipei
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/lidarr/config:/config
+      - ${MEDIA_ROOT}/Music:/music
+      - ${MEDIA_ROOT}/Download/Torrent:/downloads
+
+networks:
+  lidarr:
+    name: lidarr
+    driver: bridge

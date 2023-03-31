@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  guacamole:
+    image: oznu/guacamole:armhf
+    container_name: guacamole
+    restart: unless-stopped
+    networks:
+      - guacamole
+    ports:
+      - 8082:8080
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/guacamole/config:/config
+
+networks:
+  guacamole:
+    name: guacamole
+    driver: bridge

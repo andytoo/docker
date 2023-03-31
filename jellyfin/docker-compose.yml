@@ -1,0 +1,26 @@
+version: "3.5"
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin
+    container_name: jellyfin
+    restart: unless-stopped
+    networks:
+      - jellyfin
+    ports:
+      - 8096:8096
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Taipei
+      - JELLYFIN_PublishedServerUrl=${JELLYFIN_PublishedServerUrl}
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/jellyfin/config:/config
+      - ${MEDIA_ROOT}/Tv Shows:/data/tvshows
+      - ${MEDIA_ROOT}/Movies:/data/movies
+
+networks:
+  jellyfin:
+    name: jellyfin
+    driver: bridge

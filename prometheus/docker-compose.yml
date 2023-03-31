@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    user: "$UID:$GID"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - prometheus
+    ports:
+      - 9090:9090
+    environment:
+      - TZ=Asia/Taipei
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/prometheus/config:/etc/prometheus
+      - ${DATA_ROOT}/prometheus/data:/prometheus
+
+networks:
+  prometheus:
+    name: prometheus
+    driver: bridge

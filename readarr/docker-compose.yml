@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    restart: unless-stopped
+    networks:
+      - readarr
+    ports:
+      - 8787:8787
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Taipei
+    volumes:
+      - ${DATA_ROOT}/readarr/config:/config
+      - ${MEDIA_ROOT}/Books:/books
+      - ${MEDIA_ROOT}/Downloads/Torrent:/downloads
+
+networks:
+  readarr:
+    name: readarr
+    driver: bridge

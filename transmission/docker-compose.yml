@@ -1,0 +1,27 @@
+version: "3.5"
+services:
+  transmission:
+    image: ghcr.io/linuxserver/transmission
+    container_name: transmission
+    restart: unless-stopped
+    networks:
+      - transmission
+    ports:
+      - 9091:9091
+      - 51413:51413
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Taipei
+      - TRANSMISSION_WEB_HOME=/combustion-release/
+      - USER=${USER}
+      - PASS=${PASS}
+    volumes:
+      - ${DATA_ROOT}/transmission/config:/config
+      - ${MEDIA_ROOT}/Downloads/Torrent:/downloads
+      - ${MEDIA_ROOT}/Downloads/Torrent:/watch
+
+networks:
+  transmission:
+    name: transmission
+    driver: bridge

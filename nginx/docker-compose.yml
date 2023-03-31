@@ -1,0 +1,43 @@
+version: "3.5"
+services:
+  nginx:
+    image: jc21/nginx-proxy-manager
+    container_name: nginx_server
+    restart: unless-stopped
+    networks:
+      - nginx
+    ports:
+      - 80:80
+      - 443:443
+      - 81:81
+    environment:
+      - TZ=Asia/Taipei
+      - DB_MYSQL_HOST=${DB_MYSQL_HOST}
+      - DB_MYSQL_PORT=${DB_MYSQL_PORT}
+      - DB_MYSQL_USER=${DB_MYSQL_USER}
+      - DB_MYSQL_PASSWORD=${DB_MYSQL_PASSWORD}
+      - DB_MYSQL_NAME=${DB_MYSQL_NAME}
+    volumes:
+      - ${DATA_ROOT}/nginx/data:/data
+      - ${DATA_ROOT}/nginx/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+  db:
+    image: jc21/mariadb-aria
+    container_name: nginx_mariadb
+    restart: unless-stopped
+    networks:
+      - nginx
+    environment:
+      - TZ=Asia/Taipei
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ${DATA_ROOT}/nginx/mysql_data:/var/lib/mysql
+
+networks:
+  nginx:
+    name: nginx
+    driver: bridge

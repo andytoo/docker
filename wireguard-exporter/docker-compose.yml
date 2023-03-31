@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  wireguard-exporter:
+    image: mindflavor/prometheus-wireguard-exporter
+    container_name: wireguard-exporter
+    restart: unless-stopped
+    command:
+      - '--prepend_sudo=true'
+    networks:
+      - wireguard
+    ports:
+      - 9586:9586
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ${DATA_ROOT}/wireguard/config:/config
+      - ${DATA_ROOT}/wireguard/modules:/lib/modules:ro
+
+networks:
+  wireguard:
+    external: true

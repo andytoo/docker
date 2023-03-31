@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    restart: unless-stopped
+    networks:
+      - influxdb
+    ports:
+      - 8086:8086
+    environment:
+      - TZ=Asia/Taipei
+      - INFLUXDB_CONFIG_PATH=/etc/influxdb/influxdb.conf
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/influxdb/data:/var/lib/influxdb
+      - ${DATA_ROOT}/influxdb/config:/etc/influxdb
+
+networks:
+  influxdb:
+    name: influxdb
+    driver: bridge

@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  cadvisor:
+    image: zcube/cadvisor
+    container_name: cadvisor
+    restart: unless-stopped
+    networks:
+      - cadvisor
+    ports:
+      - 8081:8080
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+
+networks:
+  cadvisor:
+    name: cadvisor
+    driver: bridge

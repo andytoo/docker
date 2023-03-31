@@ -1,0 +1,9 @@
+version: "3.5"
+services:
+  portainer:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    command: --debug --run-once --cleanup
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

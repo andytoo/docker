@@ -1,0 +1,23 @@
+version: "3.5"
+services:
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    restart: unless-stopped
+    networks:
+      - telegraf
+    environment:
+      - HOST_ETC=/hostfs/etc
+      - HOST_PROC=/hostfs/proc
+      - HOST_SYS=/hostfs/sys
+      - HOST_VAR=/hostfs/var
+      - HOST_RUN=/hostfs/run
+      - HOST_MOUNT_PREFIX=/hostfs
+    volumes:
+      - /:/hostfs:ro
+      - ${DATA_ROOT}/telegraf/data:/etc/telegraf
+
+networks:
+  telegraf:
+    name: telegraf
+    driver: bridge

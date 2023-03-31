@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    user: "$UID:$GID"
+    networks:
+      - grafana
+    ports:
+      - 3000:3000
+    environment:
+      - TZ=Asia/Taipei
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/grafana/data:/var/lib/grafana
+
+networks:
+  grafana:
+    name: grafana
+    driver: bridge

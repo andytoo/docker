@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  bitwarden:
+    image: vaultwarden/server
+    container_name: bitwarden
+    restart: unless-stopped
+    networks:
+      - bitwarden
+    ports:
+      - 8080:80
+    environment:
+      - TZ=Asia/Taipei
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
+    env_file:
+      - .env
+    volumes:
+      - ${DATA_ROOT}/bitwarden/data:/data
+
+networks:
+  bitwarden:
+    name: bitwarden
+    driver: bridge
