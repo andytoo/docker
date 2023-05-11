@@ -12,8 +12,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Taipei
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/freshrss/config:/config
 

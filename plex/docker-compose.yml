@@ -11,8 +11,6 @@ services:
       - TZ=Asia/Taipei
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM}
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/plex/config:/config
       - ${MEDIA_ROOT}/Movies:/movies

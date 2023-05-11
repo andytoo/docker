@@ -1,2 +1,5 @@
 # Environment file
 .env
+
+# Macos
+.DS_Store

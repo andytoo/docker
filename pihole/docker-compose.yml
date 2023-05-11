@@ -9,11 +9,9 @@ services:
         ipv4_address: 192.168.31.20
     environment:
       - TZ=Asia/Taipei
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/pihole/etc-pihole:/etc/pihole
-      - ${DATA_ROOT}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d 
+      - ${DATA_ROOT}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
 

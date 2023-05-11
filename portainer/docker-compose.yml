@@ -12,12 +12,9 @@ services:
       - TZ=Asia/Taipei
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - data:/data
+      - ${DATA_ROOT}/portainer/data:/data
 
 networks:
   portainer:
     name: portainer
     driver: bridge
-
-volumes:
-  data:

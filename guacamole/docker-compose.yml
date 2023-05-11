@@ -8,8 +8,6 @@ services:
       - guacamole
     ports:
       - 8082:8080
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/guacamole/config:/config
 

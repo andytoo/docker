@@ -5,7 +5,7 @@ services:
     container_name: wireguard-exporter
     restart: unless-stopped
     command:
-      - '--prepend_sudo=true'
+      - "--prepend_sudo=true"
     networks:
       - wireguard
     ports:

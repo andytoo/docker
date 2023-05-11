@@ -12,9 +12,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Taipei
-      - AUTO_UPDATE=true
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/jackett/config:/config
       - ${DATA_ROOT}/jackett/downloads:/downloads

@@ -6,18 +6,53 @@ services:
     restart: unless-stopped
     user: "$UID:$GID"
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - "--config.file=/etc/prometheus/prometheus.yml"
     networks:
       - prometheus
     ports:
       - 9090:9090
     environment:
       - TZ=Asia/Taipei
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/prometheus/config:/etc/prometheus
       - ${DATA_ROOT}/prometheus/data:/prometheus
+    depends_on:
+      - node-exporter
+      - cadvisor
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    restart: unless-stopped
+    command:
+      - "--collector.textfile.directory=/host/var/lib/node_exporter/textfile_collector"
+    networks:
+      - prometheus
+    ports:
+      - 9100:9100
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /:/host:ro,rslave
+
+  cadvisor:
+    image: zcube/cadvisor
+    container_name: cadvisor
+    restart: unless-stopped
+    networks:
+      - prometheus
+    ports:
+      - 8081:8080
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
 
 networks:
   prometheus:

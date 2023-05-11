@@ -11,8 +11,6 @@ services:
     environment:
       - TZ=Asia/Taipei
       - INFLUXDB_CONFIG_PATH=/etc/influxdb/influxdb.conf
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/influxdb/data:/var/lib/influxdb
       - ${DATA_ROOT}/influxdb/config:/etc/influxdb

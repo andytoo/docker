@@ -1,0 +1,20 @@
+version: "3.5"
+services:
+  bitwarden:
+    image: jenkins/jenkins
+    container_name: jenkins
+    restart: unless-stopped
+    networks:
+      - jenkins
+    ports:
+      - 8082:8080
+      - 50000:50000
+    environment:
+      - TZ=Asia/Taipei
+    volumes:
+      - ${DATA_ROOT}/jenkins/home:/var/jenkins_home
+
+networks:
+  jenkins:
+    name: jenkins
+    driver: bridge

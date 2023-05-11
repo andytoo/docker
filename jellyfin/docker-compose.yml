@@ -13,8 +13,6 @@ services:
       - PGID=1000
       - TZ=Asia/Taipei
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_PublishedServerUrl}
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/jellyfin/config:/config
       - ${MEDIA_ROOT}/Tv Shows:/data/tvshows

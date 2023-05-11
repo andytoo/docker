@@ -11,8 +11,6 @@ services:
     environment:
       - TZ=Asia/Taipei
       - ADMIN_TOKEN=${ADMIN_TOKEN}
-    env_file:
-      - .env
     volumes:
       - ${DATA_ROOT}/bitwarden/data:/data
 
